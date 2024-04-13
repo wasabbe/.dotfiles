@@ -141,7 +141,10 @@ export PATH=$PATH:$JAVA_HOME/bin
 #fzf config
 export FZF_CTRL_T_COMMAND="find . -maxdepth 2"
 
-
+# The plugin will auto execute this zvm_after_init function
+function zvm_after_init() {
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+}
 # fnm
 export PATH="/home/sabby/.local/share/fnm:$PATH"
 eval "`fnm env`"
@@ -150,3 +153,5 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
