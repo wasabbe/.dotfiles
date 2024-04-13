@@ -4,9 +4,10 @@ live_config_reload = true
 [env]
 TERM = "alacritty"
 
-[window.dimensions]
-columns = 80
-lines = 30
+[window]
+decorations = "none"
+opacity = 0.9
+startup_mode = "Fullscreen"
 
 [cursor.style]
 shape = "Block"
