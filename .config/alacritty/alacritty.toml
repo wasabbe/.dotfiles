@@ -1,4 +1,4 @@
-import = ["/home/sabby/.config/alacritty/themes/themes/tokyo-night.toml"]
+import = ["/home/sabby/.config/alacritty/themes/themes/catppuccin-macchiato.toml"]
 live_config_reload = true
 
 [env]
