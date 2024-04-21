@@ -121,6 +121,7 @@ export LANG=en_US.UTF-8
 #nvim alias
 alias vim="nvim"
 alias cdk="npx cdk"
+alias xata="npx xata"
 
 #default editor and visual
 export EDITOR=nvim
