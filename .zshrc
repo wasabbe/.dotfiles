@@ -155,3 +155,5 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(fnm env --use-on-cd)" > /dev/null 2>&1
