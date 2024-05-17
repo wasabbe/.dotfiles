@@ -33,9 +33,18 @@ return {
 
     { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
     { 'neovim/nvim-lspconfig' },
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/nvim-cmp' },
-    { 'L3MON4D3/LuaSnip' },
+    {
+        'hrsh7th/nvim-cmp',
+        lazy = false,
+        priority = 100,
+        dependencies = {
+            'onsails/lspkind.nvim',
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-buffer',
+            'L3MON4D3/LuaSnip'
+        }
+    },
 
     {
         'nvim-lualine/lualine.nvim',
