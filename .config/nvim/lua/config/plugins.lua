@@ -2,7 +2,7 @@ return {
 
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.6',
+        tag = '0.1.8',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
 
@@ -31,7 +31,7 @@ return {
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
 
-    { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
+    { 'VonHeikemen/lsp-zero.nvim',        branch = 'v4.x' },
     { 'neovim/nvim-lspconfig' },
     {
         'hrsh7th/nvim-cmp',
@@ -57,6 +57,24 @@ return {
     },
 
     {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
+        -- use opts = {} for passing setup options
+        -- this is equalent to setup({}) function
+    },
+
+    -- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            -- add any options here
+        },
+        lazy = true
+    },
+
+
+    {
         'pwntester/octo.nvim',
         name = "octo",
         dependencies = {
@@ -77,7 +95,11 @@ return {
 
     {
         'lervag/vimtex',
-        lazy = true
+        lazy = false,
+        init = function()
+            -- VimTeX configuration goes here, e.g.
+            vim.g.vimtex_view_method = "zathura"
+        end
     },
 
     -- install without yarn or npm
@@ -88,10 +110,5 @@ return {
         build = function() vim.fn["mkdp#util#install"]() end,
     },
 
-    -- git worktrees
-    {
-        "polarmutex/git-worktree.nvim",
-        tag = "1.0.0"
-    }
-
 }
+

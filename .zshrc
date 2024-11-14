@@ -88,6 +88,7 @@ plugins=(
     colorize 
     gh
     fzf
+    poetry
 )
 
 source $ZSH/oh-my-zsh.sh
