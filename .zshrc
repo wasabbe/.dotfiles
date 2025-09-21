@@ -2,17 +2,17 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -24,7 +24,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+# CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -78,17 +78,17 @@ CASE_SENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git 
-    zsh-autosuggestions 
-    fast-syntax-highlighting 
-    web-search 
-    zsh-vi-mode
-    docker 
-    colored-man-pages 
-    colorize 
-    gh
-    fzf
-    poetry
+  git
+  web-search
+  colored-man-pages
+  aws
+  gh
+  docker
+  docker-compose
+  zsh-autosuggestions
+  fast-syntax-highlighting
+  zsh-vi-mode
+  poetry
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -104,66 +104,77 @@ export LANG=en_US.UTF-8
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#nvim alias
+# nvim alias
 alias vim="nvim"
-alias cdk="npx cdk"
-alias xata="npx xata"
 
-#default editor and visual
+# editor and visual
 export EDITOR=nvim
-export VISUAL=nvim
+export VISUAL="$EDITOR"
 
-#alias for fan control
-alias fan-quiet="bash $HOME/p37-ec-aero-15/fan-quiet.sh"
-alias fan-normal="bash $HOME/p37-ec-aero-15/fan-normal.sh"
-alias fan-gaming="bash $HOME/p37-ec-aero-15/fan-gaming.sh"
+# npm cdk alias
+alias cdk="npx cdk"
 
-#dotfiles
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+# npm ng alias
+alias ng="npx ng"
 
-#adding JAVA_HOME to path
-export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
-export PATH=$PATH:$JAVA_HOME/bin
+# npm jest alias
+alias jest="npx jest"
 
-#fzf config
-export FZF_CTRL_T_COMMAND="find . -maxdepth 2"
-
-# The plugin will auto execute this zvm_after_init function
-function zvm_after_init() {
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# unset aws creds
+unset_aws_creds() {
+    unset AWS_PROFILE
+    unset AWS_ACCESS_KEY_ID
+    unset AWS_SECRET_ACCESS_KEY
+    unset AWS_SESSION_TOKEN
 }
 
-# fzf colorscheme
+# Remove branches
+alias gprune="git branch | fzf -m | xargs git branch -D"
+
+### fzf keybinds
+
+# Preview file content using bat (https://github.com/sharkdp/bat)
+export FZF_CTRL_T_OPTS=" --walker-skip .git,node_modules,target --preview 'bat -n --color=always {}' --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+
+# CTRL-Y to copy the command into clipboard using pbcopy
+export FZF_CTRL_R_OPTS=" --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
+
+# Print tree structure in the preview window
+export FZF_ALT_C_OPTS=" --walker-skip .git,node_modules,target --preview 'tree -C {}'"
 
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
 --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
---color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
+--color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
+--color=selected-bg:#494d64 \
+--color=border:#363a4f,label:#cad3f5"
 
-# fnm
-export PATH="/home/sabby/.local/share/fnm:$PATH"
-eval "`fnm env`"
-fpath+=${ZDOTDIR:-~}/.zsh_functions
-fpath+=${ZDOTDIR:-~}/.zsh_functions
+export FZF_COMPLETION_TRIGGER="**"
+
+# fnm 
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up fzf key bindings and fuzzy completion
+zvm_after_init_commands+=('source <(fzf --zsh)')
 
-eval "$(fnm env --use-on-cd)" > /dev/null 2>&1

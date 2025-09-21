@@ -1,43 +1,76 @@
----
--- LSP configuration
----
 if vim.fn.has('linux') then
-    local fnm_alias = vim.fs.normalize('$HOME/.local/share/fnm/aliases/lts')
-    local node_dir = fnm_alias .. '/bin/'
-    if (vim.fn.isdirectory(node_dir)) then
-        vim.env.PATH = node_dir .. ':' .. vim.env.PATH
-    end
+  local fnm_alias = vim.fs.normalize('$HOME/.local/share/fnm/aliases/lts')
+  local node_dir = fnm_alias .. '/bin/'
+  if (vim.fn.isdirectory(node_dir)) then
+    vim.env.PATH = node_dir .. ':' .. vim.env.PATH
+  end
 end
 
-local lsp_zero = require('lsp-zero')
-
-local lsp_attach = function(client, bufnr)
-    -- see :help lsp-zero-keybindings
-    -- to learn the available actions
-    lsp_zero.default_keymaps({ buffer = bufnr })
+if vim.fn.has('mac') then
+  local fnm_alias = vim.fs.normalize('~/Library/Application Support/fnm/aliases/lts')
+  local node_dir = fnm_alias .. '/bin/'
+  if (vim.fn.isdirectory(node_dir)) then
+    vim.env.PATH = node_dir .. ':' .. vim.env.PATH
+  end
 end
 
-lsp_zero.extend_lspconfig({
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
-    lsp_attach = lsp_attach,
-    float_border = 'rounded',
-    sign_text = true,
-})
+local languages = {
+  'lua_ls',
+  'angularls',
+  'bashls',
+  'cssls',
+  'dockerls',
+  'html',
+  'jsonls',
+  'marksman',
+  'pyright',
+  'ts_ls',
+  'yamlls'
+}
 
-require('mason').setup({})
-require('mason-lspconfig').setup({
-    ensure_installed = {
-        'lua_ls',
-        'bashls',
-        'dockerls',
-        'marksman',
-        'pyright',
-        'tsserver',
-        'yamlls'
-    },
-    handlers = {
-        function(server_name)
-            require('lspconfig')[server_name].setup({})
+require("mason").setup()
+require("mason-lspconfig").setup {
+  ensure_installed = languages,
+  automatic_installation = false
+}
+
+vim.o.winborder = 'rounded'
+vim.opt.completeopt = { 'menu', 'menuone', 'noinsert' }
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    if client:supports_method('textDocument/formatting') then
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        buffer = args.buf,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
         end,
-    },
+      })
+    end
+  end,
 })
+
+local capabilities = {
+  textDocument = {
+    foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true
+    },
+    completion = {
+      completionItem = {
+        snippetSupport = true,
+      }
+    }
+  }
+}
+
+vim.lsp.config(
+  "*",
+  {
+    capabilities = require('blink.cmp').get_lsp_capabilities(capabilities),
+    root_markers = { '.git' },
+  })
+
+vim.lsp.enable(languages)
