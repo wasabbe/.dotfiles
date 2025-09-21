@@ -2,7 +2,8 @@ vim.g.mapleader = " "
 
 -- most of these keybinds are taken from thePrimeagen
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "show root dir" })
+--vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "show root dir"})
+--vim.keymap.set("n", "<leader>-", vim.cmd.Ex, { desc = "show root dir"})
 
 -- move code up and down in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "move selected text down in visual mode" })
@@ -36,7 +37,7 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
+  vim.cmd("so")
 end, { desc = "source current file" })
 
 -- make replacing strings easier
@@ -45,14 +46,17 @@ vim.keymap.set("n", "<leader>rp", ":%s/", { desc = "shortcut to make replacing s
 -- create vertical split
 vim.keymap.set("n", "<leader>vs", vim.cmd.vsplit, { desc = "make vertical split" })
 
+-- create horizontal split
+vim.keymap.set("n", "<leader>hs", vim.cmd.split, { desc = "make horizontal split" })
+
 -- resize splits (from TJ Devries)
-vim.keymap.set("n", "<M-.>", "<c-w>5>", { desc = "make vsplit bigger" })
-vim.keymap.set("n", "<M-,>", "<c-w>5<", { desc = "make vsplit smaller" })
-vim.keymap.set("n", "<M-t>", "<C-W>+", { desc = "make hsplit bigger" })
-vim.keymap.set("n", "<M-s>", "<C-W>-", { desc = "make hsplit smaller" })
+vim.keymap.set("n", "<M->>", "<c-w>5>", { desc = "make vsplit bigger" })
+vim.keymap.set("n", "<M-<>", "<c-w>5<", { desc = "make vsplit smaller" })
+vim.keymap.set("n", "<M-T>", "<C-W>+", { desc = "make hsplit bigger" })
+vim.keymap.set("n", "<M-S>", "<C-W>-", { desc = "make hsplit smaller" })
 
 -- navigate splits (from TJ Devries)
-vim.keymap.set("n", "<M-h>", "<c-w><c-h>", { desc = "switch to left split from current" })
-vim.keymap.set("n", "<M-j>", "<c-w><c-j>", { desc = "switch to bottom split from current" })
-vim.keymap.set("n", "<M-k>", "<c-w><c-k>", { desc = "switch to top split from current" })
-vim.keymap.set("n", "<M-l>", "<c-w><c-l>", { desc = "switch to right split from current" })
+--vim.keymap.set("n", "<M-h>", "<c-w><c-h>", { desc = "switch to left split from current" })
+--vim.keymap.set("n", "<M-j>", "<c-w><c-j>", { desc = "switch to bottom split from current" })
+--vim.keymap.set("n", "<M-k>", "<c-w><c-k>", { desc = "switch to top split from current" })
+--vim.keymap.set("n", "<M-l>", "<c-w><c-l>", { desc = "switch to right split from current" })
