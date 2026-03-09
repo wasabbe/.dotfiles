@@ -54,16 +54,16 @@ return {
         ["Repo search "] = "https://github.com/search?q=%s&type=repositories",
       }
 
-      browse.open_bookmarks({ bookmarks = github, prompt_title = "GitHub Search" })
+      browse.open_manual_bookmarks({ bookmarks = github, prompt_title = "GitHub Search" })
     end, {})
 
     command("Confluence", function()
       local confluence = { "https://confluence.nexteraenergy.com/dosearchsite.action?queryString=%s" }
-      browse.open_bookmarks({ bookmarks = confluence, prompt_title = "Confluence Search" })
+      browse.open_manual_bookmarks({ bookmarks = confluence, prompt_title = "Confluence Search" })
     end, {})
 
     command("Bookmarks", function()
-      browse.open_bookmarks({ bookmarks = bookmarks })
+      browse.open_manual_bookmarks({ bookmarks = bookmarks })
     end)
 
     -- keymaps

@@ -8,7 +8,7 @@ vim.opt.expandtab = true
 
 vim.opt.smartindent = true
 
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -40,7 +40,7 @@ vim.g.netrw_preview = 1
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
--- get relative line numbers in netrw 
+-- get relative line numbers in netrw
 vim.g.netrw_bufsettings = "noma nomod nu rnu nobl nowrap ro"
 
 vim.opt.guicursor = ""

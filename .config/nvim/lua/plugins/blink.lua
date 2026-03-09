@@ -1,7 +1,10 @@
 return {
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
-  dependencies = { 'rafamadriz/friendly-snippets', 'archie-judd/blink-cmp-words' },
+  dependencies = { 'rafamadriz/friendly-snippets',
+    'archie-judd/blink-cmp-words',
+    { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
+  },
 
   -- use a release tag to download pre-built binaries
   version = '1.*',
@@ -25,7 +28,19 @@ return {
     -- C-k: Toggle signature help (if signature.enabled = true)
     --
     -- See :h blink-cmp-config-keymap for defining your own keymap
-    keymap = { preset = 'default' },
+    keymap = {
+      preset = 'default',
+      ["<Tab>"] = {
+        "snippet_forward",
+        function() -- sidekick next edit suggestion
+          return require("sidekick").nes_jump_or_apply()
+        end,
+        --[[ function() -- if you are using Neovim's native inline completions
+          return vim.lsp.inline_completion.get()
+        end,
+        "fallback", ]]
+      },
+    },
 
     appearance = {
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -56,6 +71,12 @@ return {
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer', 'dictionary' },
+      per_filetype = {
+        sql = {
+          'dadbod',
+          'buffer'
+        }
+      },
       providers = {
         -- Use the dictionary source
         dictionary = {
@@ -71,8 +92,12 @@ return {
             score_offset = 0,
 
             -- See above
-            pointer_symbols = { "!", "&", "^" },
+            definition_pointers = { "!", "&", "^" },
           },
+        },
+        dadbod = {
+          name = 'Dadbod',
+          module = 'vim_dadbod_completion.blink'
         },
       }
     },
