@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.local/share/fnm:$HOME/.local/bin/nvim-linux-x86_64/bin/:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -161,13 +161,16 @@ export FZF_CTRL_R_OPTS=" --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+a
 export FZF_ALT_C_OPTS=" --walker-skip .git,node_modules,target --preview 'tree -C {}'"
 
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
---color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
---color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
---color=selected-bg:#494d64 \
---color=border:#363a4f,label:#cad3f5"
+--color=bg+:#363A4F,bg:#24273A,spinner:#F4DBD6,hl:#ED8796 \
+--color=fg:#CAD3F5,header:#ED8796,info:#C6A0F6,pointer:#F4DBD6 \
+--color=marker:#B7BDF8,fg+:#CAD3F5,prompt:#C6A0F6,hl+:#ED8796 \
+--color=selected-bg:#494D64 \
+--color=border:#6E738D,label:#CAD3F5"
 
 export FZF_COMPLETION_TRIGGER="**"
+
+# Set up fzf key bindings and fuzzy completion
+zvm_after_init_commands+=('source <(fzf --zsh)')
 
 # fnm 
 eval "$(fnm env --use-on-cd --shell zsh)"
@@ -175,6 +178,21 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Set up fzf key bindings and fuzzy completion
-zvm_after_init_commands+=('source <(fzf --zsh)')
 
+
+# fnm
+FNM_PATH="/home/sabby/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
+# bun completions
+[ -s "/home/sabby/.bun/_bun" ] && source "/home/sabby/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# opencode
+export PATH=/home/sabby/.opencode/bin:$PATH
