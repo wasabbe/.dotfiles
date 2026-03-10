@@ -250,7 +250,7 @@ smart_splits.apply_to_config(config, {
 -------------------------------
 --- APPLY WORKSPACE SWITCHER
 -------------------------------
---workspace_switcher.zoxide_path = "/opt/homebrew/bin/zoxide"
+workspace_switcher.zoxide_path = "$HOME/.local/bin/zoxide"
 workspace_switcher.apply_to_config(config)
 
 return config
