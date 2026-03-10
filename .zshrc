@@ -89,6 +89,7 @@ plugins=(
   fast-syntax-highlighting
   zsh-vi-mode
   poetry
+  dotnet
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -171,14 +172,17 @@ export FZF_COMPLETION_TRIGGER="**"
 
 # Set up fzf key bindings and fuzzy completion
 zvm_after_init_commands+=('source <(fzf --zsh)')
+eval "$(zoxide init zsh)"
 
 # fnm 
 eval "$(fnm env --use-on-cd --shell zsh)"
 
+#dotnet
+#opt out of data collection
+DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-
 
 # fnm
 FNM_PATH="/home/sabby/.local/share/fnm"
