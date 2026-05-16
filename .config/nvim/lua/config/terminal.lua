@@ -39,7 +39,7 @@ local function create_floating_window(opts)
 
   -- Create the floating window
   local win = vim.api.nvim_open_win(buf, true, win_config)
-  
+
   -- Make the window background transparent to match the theme and remove shadow
   vim.api.nvim_win_set_option(win, 'winblend', 0)
   vim.api.nvim_win_set_option(win, 'winhighlight', 'Normal:Normal,FloatBorder:FloatBorder,NormalFloat:Normal')
@@ -65,3 +65,4 @@ vim.api.nvim_create_user_command("Floaterminal", toggle_terminal, {})
 
 -- Keymap to toggle floating terminal with <leader>tt
 vim.keymap.set("n", "<leader>tt", toggle_terminal, { noremap = true, silent = true, desc = "Toggle floating terminal" })
+vim.keymap.set("t", "<S-esc>", toggle_terminal, { noremap = true, silent = true, desc = "Toggle floating terminal" })

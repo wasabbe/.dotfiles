@@ -10,6 +10,10 @@ return {
   config = function()
     require("markview").setup({
       icons = "devicons",
+      preview = {
+        filetypes = { "markdown", "quarto", "rmd", "typst", "octo" },
+        ignore_buftypes = {},
+      },
     })
   end,
 
