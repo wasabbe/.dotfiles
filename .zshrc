@@ -126,6 +126,10 @@ export LANG=en_US.UTF-8
 # nvim alias
 alias vim="nvim"
 
+# gemma-4 local LLM
+alias gemma="docker compose -f ~/ai/gemma-4.yml up"
+alias gemma-down="docker compose -f ~/ai/gemma-4.yml down"
+
 # editor and visual
 export EDITOR=nvim
 export VISUAL="$EDITOR"
