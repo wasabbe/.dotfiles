@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.local/bin:$HOME/.local/share/fnm:$HOME/.local/bin/nvim-linux-x86_64/bin/:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.local/share/fnm:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"

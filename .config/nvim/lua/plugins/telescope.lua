@@ -4,7 +4,9 @@ return {
   dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
     local builtin = require('telescope.builtin')
-    vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "project find" })
+    vim.keymap.set('n', '<leader>pf', function()
+      builtin.find_files({ hidden = true })
+    end, { desc = "project find" })
     vim.keymap.set('n', '<leader>pg', builtin.git_files, { desc = "git find" })
     vim.keymap.set('n', '<leader>ps', builtin.live_grep, { desc = "grep search" })
     vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols, { desc = "document symbols" })

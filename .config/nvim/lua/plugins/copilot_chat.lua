@@ -45,10 +45,10 @@ return {
       model = "gpt-4.1",
       mappings = {
         -- Use tab for completion
-        complete = {
-          detail = "Use @<Tab> or /<Tab> for options.",
-          insert = "<Tab>",
-        },
+        -- complete = {
+        --   detail = "Use @<Tab> or /<Tab> for options.",
+        --   insert = "<Tab>",
+        -- },
         -- Close the chat
         close = {
           normal = "q",
