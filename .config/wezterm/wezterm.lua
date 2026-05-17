@@ -36,7 +36,7 @@ local config = wezterm.config_builder and wezterm.config_builder() or {}
 config.color_scheme = 'Catppuccin Macchiato'
 config.font = wezterm.font('GeistMono Nerd Font')
 config.font_size = 18.0
-config.window_background_opacity = 0.90
+config.window_background_opacity = 0.95
 config.window_decorations = 'RESIZE'
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 
@@ -131,6 +131,10 @@ wezterm.on("gui-startup", resurrect.state_manager.resurrect_on_gui_startup)
 -------------------------------
 config.keys = {
   { key = '[', mods = 'LEADER', action = act.ActivateCopyMode,             description = 'Enter copy mode' },
+
+  -- Toggle fullscreen
+
+  { key = 'F', mods = 'LEADER', action = act.ToggleFullScreen,             description = 'Toggle Fullscreen' },
 
   -- Tabs
   { key = 'w', mods = 'LEADER', action = act.ShowTabNavigator,             description = 'Show tab navigator' },

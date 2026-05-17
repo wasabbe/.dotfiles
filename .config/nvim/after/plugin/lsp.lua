@@ -14,6 +14,7 @@ if vim.fn.has('mac') then
   end
 end
 
+
 local languages = {
   'lua_ls',
   'angularls',
@@ -25,7 +26,8 @@ local languages = {
   'marksman',
   'pyright',
   'ts_ls',
-  'yamlls'
+  'yamlls',
+  'hls'
 }
 
 require("mason").setup()
@@ -33,6 +35,17 @@ require("mason-lspconfig").setup {
   ensure_installed = languages,
   automatic_installation = false
 }
+require("mason-nvim-dap").setup({
+  ensure_installed = { "js-debug-adapter" },
+  handlers = {
+    function(config)
+      -- This magic function auto-configures every adapter
+      -- installed via Mason for use with nvim-dap
+      require('mason-nvim-dap').default_setup(config)
+    end,
+  },
+  automatic_installation = false
+})
 
 vim.o.winborder = 'rounded'
 vim.opt.completeopt = { 'menu', 'menuone', 'noinsert' }
@@ -72,5 +85,9 @@ vim.lsp.config(
     capabilities = require('blink.cmp').get_lsp_capabilities(capabilities),
     root_markers = { '.git' },
   })
+
+vim.lsp.config('hls', {
+  filetypes = { 'haskell', 'lhaskell', 'cabal' },
+})
 
 vim.lsp.enable(languages)
