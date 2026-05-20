@@ -44,3 +44,6 @@
 	autoupdate = true
 [merge]
 	conflictstyle = zdiff3
+[user]
+	name = wasabbe
+	email = jaskaran.singh.career@gmail.com
