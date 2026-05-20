@@ -204,3 +204,5 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
 export PATH=/home/sabby/.opencode/bin:$PATH
+
+[ -f "/home/sabby/.ghcup/env" ] && . "/home/sabby/.ghcup/env" # ghcup-env
